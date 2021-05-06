@@ -27,7 +27,6 @@ export class Node {
 		)
 	}
 
-	//Inserts a node in HTML
 	insert(node, isLeft) {
 		const newHtml = node.html
 
@@ -40,7 +39,6 @@ export class Node {
 		this.updateRootHtml()
 	}
 
-	//Updates HTML for the node
 	setHtml() {
 		this.html = (
 			<li>
@@ -52,8 +50,6 @@ export class Node {
 		)
 	}
 
-
-	//Updates the whole HTML
 	updateRootHtml() {
 		if (this.parent !== null) {
 			if (this.parent.left === this) this.parent.insert(this, true)
@@ -61,7 +57,6 @@ export class Node {
 		}
 	}
 
-	//Sets one child to null
 	setChildToNull(isLeft) {
 		if (isLeft) {
 			this.htmlLeft = (
@@ -80,7 +75,6 @@ export class Node {
 		this.updateRootHtml()
 	}
 
-	//Sets grandchild to child
 	setChildToChildsChild(isLeftChild, isLeft) {
 		if (isLeftChild) {
 			if (isLeft) {
@@ -336,7 +330,6 @@ class BST {
 		else return this.search(value, node.right)
 	}
 
-	//Random Tree generator
 	generateRandomBST(num) {
 		let upper = 0
 		let lower = num * 2 + 10
@@ -353,105 +346,8 @@ class BST {
 		}
 	}
 
-	//BST Checker
-	//Main Checker function
-	checkBST() {
-		let BSTTypeList = []
-		if (this.isBalanced()) {
-			BSTTypeList.push('Balanced')
-		}
-		if (this.isComplete()) {
-			BSTTypeList.push('Complete')
-		}
-		if (this.isPerfect()) {
-			BSTTypeList.push('Perfect')
-		}
-		if (this.isFull()) {
-			BSTTypeList.push('Full')
-		}
-		return BSTTypeList
-	}
 
-	//Subfunctions
-	//balance
-	isBalanced(node = this.root) {
-		if (node === null) return true
-		let leftH = this.height(node.left)
-		let rightH = this.height(node.right)
-		if (Math.abs(leftH - rightH) <= 1) {
-			return this.isBalanced(node.left) && this.isBalanced(node.right)
-		} else {
-			return false
-		}
-	}
 
-	//complete
-	isComplete() {
-		let totalNodes = this.countNodes()
-		return this.isComplete2(0, totalNodes)
-	}
-	isComplete2(index, totalNodes, node = this.root) {
-		if (node === null) return true
-		else if (index >= totalNodes) return false
-		else {
-			let ans = this.isComplete2(index * 2 + 1, totalNodes, node.left)
-			ans &= this.isComplete2(index * 2 + 2, totalNodes, node.right)
-			return ans
-		}
-	}
-
-	//perfect
-	isPerfect() {
-		if (!this.isFull() || !this.isComplete()) return false
-		return this.isPerfect2()
-	}
-
-	isPerfect2(node = this.root, depth = 0) {
-		if (!node) return true
-		depth++
-		if (!node.right && !node.left) {
-			if (this.leafDepth !== -1 && this.leafDepth !== depth)
-				return false
-			this.leafDepth = depth
-		}
-		return (
-			this.isPerfect2(node.left, depth) &&
-			this.isPerfect2(node.right, depth)
-		)
-	}
-
-	//full
-	isFull(node = this.root) {
-		if (node === null) return true
-		else if (node.left === null && node.right === null) return true
-		else if (node.left !== null && node.right !== null) {
-			let ans
-			ans = this.isFull(node.left)
-			ans &= this.isFull(node.right)
-			return ans
-		} else return false
-	}
-
-	//Balancing BST
-	balance(node = this.root) {
-		this.clearHighlight()
-		let nodes = []
-		this.BSTToArr(node, nodes)
-		let l = nodes.length
-		this.root = null
-		this.makeBST(nodes, 0, l - 1)
-	}
-
-	//Balancing sub functions
-	BSTToArr(node, nodes) {
-		if (node !== null) {
-			this.BSTToArr(node.left, nodes)
-			nodes.push(node)
-			this.BSTToArr(node.right, nodes)
-		}
-	}
-
-	//making BST from array
 	makeBST(nodes, start, end) {
 		if (start > end) {
 			return

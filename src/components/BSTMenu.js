@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-function TrieMenu(props) {
+function BSTMenu(props) {
 	const insertRef = useRef(null)
 	const removeRef = useRef(null)
 	const searchRef = useRef(null)
@@ -18,10 +18,6 @@ function TrieMenu(props) {
 		props.search(searchRef.current.value)
 	}
 
-	const searchFromDel = () => {
-		props.search(removeRef.current.value)
-	}
-
 	const random = () => {
 		props.random(randomRef.current.value)
 	}
@@ -31,13 +27,13 @@ function TrieMenu(props) {
 	}
 
 	return (
-		<div className="menu trie">
-			<ul id="mainTrie">
+		<div className="menu">
+			<ul id="mainBST">
 				<li>
 					<input
 						placeholder="Insert"
 						ref={insertRef}
-						type="text"
+						type="number"
 						onKeyUp={e => {
 							if (e.keyCode === 13) insert()
 						}}
@@ -49,21 +45,24 @@ function TrieMenu(props) {
 				<li>
 					<input
 						placeholder="Search"
-						type="text"
+						type="number"
 						ref={searchRef}
-						onChange={search}
+						onKeyUp={e => {
+							if (e.keyCode === 13) search()
+						}}
+						className={props.seaError}
 					/>
+					<button onClick={search}>Search</button>
 				</li>
 				<li>
 					<input
 						placeholder="Delete"
 						ref={removeRef}
-						type="text"
-						onChange={searchFromDel}
-						className={props.delError}
+						type="number"
 						onKeyUp={e => {
 							if (e.keyCode === 13) remove()
 						}}
+						className={props.delError}
 					/>
 					<button onClick={remove} className="delete">
 						Delete
@@ -83,9 +82,31 @@ function TrieMenu(props) {
 				<li>
 					<button onClick={clear}>Clear</button>
 				</li>
+				<li className="dropdown">
+					<button>Traversal</button>
+					<div className="dropdown-content">
+						<ul>
+							<li>
+								<button onClick={() => props.traversal('inorder')}>
+									Inorder
+								</button>
+							</li>
+							<li>
+								<button onClick={() => props.traversal('preorder')}>
+									Preorder
+								</button>
+							</li>
+							<li>
+								<button onClick={() => props.traversal('postorder')}>
+									Postorder
+								</button>
+							</li>
+						</ul>
+					</div>
+				</li>
 			</ul>
 		</div>
 	)
 }
 
-export default TrieMenu
+export default BSTMenu

@@ -1,16 +1,12 @@
 @mixin buttonColorGlow($c1, $c2) {
 	color: $c1;
-	text-shadow: 0px -1px 1px $c2;
 }
 
-//Background Color
-$BGColor: #ebecf0;
+$BGColor: yellow;
 
 .App {
 	text-align: center;
 }
-
-//Styling top menu
 body,
 html {
 	background-color: $BGColor;
@@ -29,8 +25,8 @@ button {
 
 div,
 p {
-	color: #babecc;
-	text-shadow: 1px 1px 1px #fff;
+	color: black;
+	font-weight: 800;
 }
 
 p {
@@ -50,12 +46,12 @@ input {
 	border: 0;
 	outline: 0;
 	font-size: 14px;
-	border-radius: 320px;
+	border-radius: 10px;
 	padding: 16px;
 	background-color: $BGColor;
-	text-shadow: 1px 1px 0 #fff;
 	margin: 5px;
 }
+
 .i {
 	position: absolute;
 	padding: 0px;
@@ -65,7 +61,7 @@ input {
 .heading {
 	display: inline-block;
 	padding: 0px;
-	color: rgb(85, 85, 85);
+	color: black;
 }
 
 .main-menu-button {
@@ -107,78 +103,51 @@ div.menu li {
 }
 
 input {
-	box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
 	width: 110px;
 	box-sizing: border-box;
+	background: white;
 	transition: all 0.2s ease-in-out;
 	appearance: none;
 	-webkit-appearance: none;
 }
 input:focus {
-	box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+	box-shadow: inset 1px 1px 2px black, inset -1px -1px 2px black;
 }
 
 button {
-	color: #61677c;
+	color: black;
 	font-weight: bold;
-	box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc;
+	box-shadow:5px 5px 20px black;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 	font-weight: 600;
 }
 
 button:hover {
-	box-shadow: -2px -2px 5px #fff, 2px 2px 5px #babecc;
+	box-shadow: -2px -2px 5px black, 2px 2px 5px black;
 	color: #3975e4;
-	text-shadow: 0px -1px 1px rgba(0, 132, 255, 0.2);
 }
 
-#mainAVL button:hover,
-#mainBST button:hover,
-#mainMaxH button:hover,
-#mainMinH button:hover,
-#mainRedB button:hover,
-#mainTrie button:hover {
-	box-shadow: -2px -2px 5px #fff, 2px 2px 5px #babecc;
-	color: #d69e2e;
-	text-shadow: 0px -1px 1px #d69e2e4d;
+#mainBST button:hover {
+	box-shadow: -2px -2px 5px black, 2px 2px 5px black;
+	color: #ffaa00;
 	&.delete {
-		color: #e43939;
-		text-shadow: 0px -1px 1px rgba(255, 0, 0, 0.2);
+		color: #f32020;
 	}
 
 	&.insert {
-		color: #3fda31;
-		text-shadow: 0px -1px 1px rgba(0, 255, 21, 0.2);
+		color: #25ff11;
 	}
 
 	&:active {
-		box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+		box-shadow: inset 1px 1px 2px black, inset -1px -1px 2px black;
 	}
 }
 
 #mainBST button:hover {
-	@include buttonColorGlow(#4299e1, #4299e159);
+	@include buttonColorGlow(#4299e1, darkblue);
 }
 
-#mainMaxH button:hover {
-	@include buttonColorGlow(#9f7aea, #9f7aea59);
-}
-
-#mainMinH button:hover {
-	@include buttonColorGlow(#ed64a6, #ed64a659);
-}
-#mainRedB button:hover {
-	@include buttonColorGlow(#ed8936, #ed893659);
-}
-
-#mainTrie button:hover {
-	@include buttonColorGlow(#667eea, #667eea59);
-}
-
-button:active {
-	box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
-}
 
 .dropdown {
 	position: relative;
@@ -189,13 +158,11 @@ button:active {
 .dropdown-content {
 	display: none;
 	position: absolute;
-	background-color: $BGColor;
-	border-radius: 20px;
+	border-radius: 5px;
 	width: 100%;
 	height: 180px;
 	padding: 0 10px;
 	text-align: center;
-	box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc;
 	z-index: 1;
 }
 
@@ -218,9 +185,9 @@ button:active {
 .traversal,
 .bstlist {
 	margin: 10px 10px;
-	box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
 	padding: 16px;
 	border-radius: 20px;
+	color:black;
 }
 
 .traversal ul,
@@ -228,7 +195,7 @@ button:active {
 	padding: 0;
 	margin: 0;
 	list-style: none;
-	color: #61677c;
+	color: black;
 	font-weight: bold;
 }
 
@@ -258,3 +225,12 @@ button:active {
 		top: 140px;
 	}
 }
+
+#content {
+	display: flex;
+	width:100%;
+	justify-content: center;
+	flex-wrap: wrap;
+	align-items: center;
+
+}	

@@ -1,39 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import RedBMenu from './RedBMenu'
-import RBT from './DataStructure'
-import RedBPopup from './RedBPopup'
-import useDelError from '../../hooks/useDelError'
-import { Icon } from '@iconify/react'
-import questionMarkCircleOutline from '@iconify/icons-eva/question-mark-circle-outline'
-import usePopup from '../../hooks/usePopup'
-import useTraversal from '../../hooks/useTraversal'
+import BSTMenu from './BSTMenu'
+import BST from './DataStructure'
+import useDelError from '../hooks/useDelError'
+import useTraversal from '../hooks/useTraversal'
 
-function RedBTree(props) {
+function BSTree(props) {
 	//hooks
 	const [tree, setTree] = useState()
 	const [treeHtml, setTreeHtml] = useState()
-	const [bstList, setBstList] = useState([])
 	const [delError, setDelError] = useDelError(treeHtml)
 	const [searchError, setSearchError] = useDelError(treeHtml)
 	const [traversalList, traversalDispatch] = useTraversal(tree)
-	const [popup, togglePopup] = usePopup()
 
-	//Initializing Tree
 	useEffect(() => {
-		let tempTree = new RBT()
+		let tempTree = new BST()
 		setTree(tempTree)
-		setTreeHtml(tempTree.root.html)
 		return () => {
 			setTree(null)
 			setTreeHtml(null)
 		}
 	}, [])
 
-	useEffect(() => {
-		setBstList([])
-	}, [treeHtml])
-
-	//Insert Function
 	const insert = val => {
 		val = parseInt(val)
 		if (!val) return
@@ -45,7 +32,6 @@ function RedBTree(props) {
 
 	}
 
-	//Remove
 	const remove = val => {
 		val = parseInt(val)
 		let tempTree = tree
@@ -62,7 +48,6 @@ function RedBTree(props) {
 
 	}
 
-	//Search
 	const search = val => {
 		val = parseInt(val)
 		let tempTree = tree
@@ -72,59 +57,38 @@ function RedBTree(props) {
 			setSearchError(true)
 			return
 		}
-
+		
 		tempTree.search(val)
 		setTree(tempTree)
 		if (tree.root) setTreeHtml(tree.root.html)
 		else setTreeHtml(null)
 	}
 
-	//Generate Random BST with num nodes
 	const random = num => {
 		num = parseInt(num)
 		if (num < 0) return
-		let tempTree = new RBT(num)
+		let tempTree = new BST(num)
 		setTree(tempTree)
-		setTreeHtml(tempTree.root.html)
+
+		if (num) setTreeHtml(tempTree.root.html)
+		else setTreeHtml(null)
 		traversalDispatch('clear')
 
-	}
-
-	//Checks whether BST is balanced, complete, perfect or full
-	const check = () => {
-		let tempList = tree.checkBST()
-		if (!tempList.length) tempList.push('No Type Match')
-		setBstList(tempList)
 	}
 
 	return (
 		<div>
 			<header>
 				<h1 className="heading">
-					Red Black Tree
-					<button className="i" onClick={togglePopup}>
-						<Icon
-							icon={questionMarkCircleOutline}
-							width="25px"
-							height="25px"
-						/>
-					</button>
+					Binary Search Tree
 				</h1>
-
-				<button
-					onClick={() => props.selector('menu')}
-					className="main-menu-button"
-				>
-					Home
-				</button>
 			</header>
-			<RedBMenu
+			<BSTMenu
 				insert={insert}
 				remove={remove}
 				search={search}
 				random={random}
 				traversal={traversalDispatch}
-				check={check}
 				delError={delError ? 'error' : ''}
 				seaError={searchError ? 'error' : ''}
 			/>
@@ -141,24 +105,11 @@ function RedBTree(props) {
 					<p>No Traversal Performed</p>
 				)}
 			</div>
-			<div className="bstlist">
-				{bstList.length ? (
-					<ul>
-						{' '}
-						{bstList.map((item, index) => (
-							<li key={index}>{item}</li>
-						))}
-					</ul>
-				) : (
-					<p>Not yet checked</p>
-				)}
-			</div>
 			<div className="tree">
 				<ul>{treeHtml}</ul>
 			</div>
-			{popup ? <RedBPopup toggle={togglePopup} /> : null}
 		</div>
 	)
 }
 
-export default RedBTree
+export default BSTree
